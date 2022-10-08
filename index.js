@@ -30,7 +30,7 @@ app.ws("/ws", (ws, req) => {
             fs.mkdirSync("users/" + username);
             bcrypt.hash(password, 10, function (err, hash) {
               hashed = hash;
-              fs.writeFileSync("users\\" + username + "\\password", hashed);
+              fs.writeFileSync("users/" + username + "/password", hashed);
             });
             ws.send("Created user: " + arguments[1]);
           } else {
