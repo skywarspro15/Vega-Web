@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Vega Web</title>
+  </head>
+  <body>
+    <div class="CLI">
+      <p id="CLIOutput"></p>
+    </div>
+    <input type="text" placeholder="Enter command" id="CLIInput" />
+  </body>
+  <script type="text/javascript">
+    var commandInput = document.getElementById("CLIInput");
+    var commandOutput = document.getElementById("CLIOutput");
+    if (location.protocol == "https:") {
+      var ws = new WebSocket(location.href.replace(/https/, "wss") + "ws");
+    } else {
+      var ws = new WebSocket(location.href.replace(/http/, "ws") + "ws");
+    }
+
+    commandInput.addEventListener("keydown", function (event) {
+      if (event.key == "Enter") {
+        sendCommand(commandInput);
+      }
+    });
+
+    ws.onopen = function () {
+      logOutput("Connnected to server");
+    };
+
+    ws.onmessage = function (event) {
+      logOutput(event.data.toString());
+    };
+
+    ws.onclose = function () {
+      logOutput("Connection closed");
+    };
+
+    function sendCommand(element) {
+      logOutput(">>" + element.value);
+      ws.send(element.value);
+      element.value = "";
+    }
+
+    function logOutput(output) {
+      commandOutput.innerHTML = commandOutput.innerHTML + output + "<br>";
+    }
+  </script>
+</html>
