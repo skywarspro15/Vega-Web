@@ -42,6 +42,18 @@ app.ws("/ws", (ws, req) => {
       } else {
         ws.send("createUser [username] [password]");
       }
+    } else if (command == "vega") {
+    } else if (command == "help") {
+      ws.send("Vega commands");
+      ws.send("To learn more about using a specific command, type in:");
+      ws.send("[command] help");
+      ws.send("");
+      ws.send("");
+      ws.send("");
+      ws.send("List of commands:");
+      ws.send("createUser");
+    } else {
+      ws.send("That command doesn't exist.");
     }
   });
 });
