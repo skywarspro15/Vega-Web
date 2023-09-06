@@ -14,7 +14,7 @@
   "author": "Tranch Software",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.1.1",
     "express": "^4.18.1",
     "express-ws": "^5.0.2",
     "path": "^0.12.7"
